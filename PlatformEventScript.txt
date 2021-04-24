@@ -1,0 +1,17 @@
+Low_Ink__e event = new Low_Ink__e(Printer_Model__c='XZO-5', Serial_Number__c='12345', 
+              Ink_Percentage__c=0.2);
+ 
+// Publish event.
+Database.SaveResult sr = EventBus.publish(event);
+ 
+// Inspect publishing result for each event
+if (sr.isSuccess()) {
+    System.debug('Successfully published event.');
+} else {
+    for(Database.Error err : sr.getErrors()) {
+        System.debug('Error returned: ' +
+                    err.getStatusCode() +
+                    ' - ' +
+                    err.getMessage());
+    }
+}
